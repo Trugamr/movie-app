@@ -1,3 +1,118 @@
 page-home {
 
+    .scroll-content {
+        height: 100vh !important;
+        overflow: hidden !important; 
+    }
+
+    .search-container {
+        height: auto;
+        background-color: #fe8d5d !important;
+        transition: ease all 0.5s !important;
+    }
+
+    // .search-container ion-col {
+    //     padding: 10px 10px 0px 10px !important;
+    // }
+
+    .search-box {
+        width: inherit;
+        position: relative;
+        padding: 10px;
+        border: none;
+        outline: none;
+        font-family: Montserrat, sans-serif;
+        border-radius: 5px;
+        background-color: white;
+        margin-bottom: 15px;
+        transition: ease all 0.5s;
+    }
+
+    .card {
+        height: auto;
+        background-color: white;
+        box-shadow: 0px 10px 30px -7px rgba(0, 0, 0, 0.2);
+        margin-bottom: 5px;
+        margin-left: 5px;
+        border-radius: 7px;
+        padding: 10px;        
+    }
+
+    .card img {
+        height: auto;
+        border-radius: 7px;
+    }
+
+    .card-title {
+        color: #303030;
+        font-size: 16px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-weight: 500;
+        margin: 5px;
+        margin-left: 0px;
+    }
+
+    .card-subtitle {
+        color: #707070;
+        font-size: 15px;
+    }
+
+    .card-info {
+        font-family: Montserat, sans-serif;
+        text-align: left;
+    }    
+
+    ion-slide {
+        padding: 0px !important;
+        display: block !important;
+        background-color: #f5f7f9 !important;
+        overflow: auto !important; 
+        height: auto !important;
+        padding-bottom: 160px !important;
+    }
+    
+
+
+    .SwipedTabs-indicatorSegment
+    {
+        -webkit-transition: 0.3s all;
+        -moz-transition:  0.3s all;
+        -o-transition:  0.3s all;
+        transition:  0.3s all;
+        transform-origin: top 0 left 0;
+        height: 3px;
+	    position: relative;
+        top: 0px;
+        margin-top: -3px;
+        background-color: white !important;
+    }
+    .SwipedTabs-tabs ion-segment-button
+    {
+    	border:none !important;
+        background-color:#fe8d5d !important; 
+        color: rgb(226, 226, 226) !important;
+        font-family: Montserrat, sans-serif;
+        font-size: 16px !important;
+        letter-spacing: 1px;
+        font-weight: 500 !important;
+        margin-top: -20px;
+        
+    }
+     .SwipedTabs-tabs ion-segment-button.SwipedTabs-activeTab
+    {
+        color: white !important;
+    }
+    .SwipedTabs-tabs
+    {
+        border-bottom: solid 0px #fe8d5d  !important;
+        background-color: #fe8d5d !important;
+        height: 35px;
+    }
+
+    .segment-button {
+        color: red !important;
+    }
+
 }

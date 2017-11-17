@@ -1,14 +1,75 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content>
+  
+  <ion-grid class="search-container" id="search-container">
+    <ion-row>
+      <ion-col>
+        <input #searchbox class="search-box" id="search-box" type="text" placeholder="Search" [(ngModel)]="movieName"> 
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-fab bottom right>
+    <button color="tomato" ion-fab (click)="navigateResultsPage()">
+      <ion-icon name="search"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <ion-segment  class="SwipedTabs-tabs"  >
+		<ion-segment-button *ngFor='let tab of tabs ; let i = index ' value="IngoreMe" (click)="selectTab(i)" 
+		[ngClass]='{ "SwipedTabs-activeTab" : ( this.SwipedTabsSlider  && ( this.SwipedTabsSlider.getActiveIndex() === i || (  tabs.length -1 === i&& this.SwipedTabsSlider.isEnd()))) }' > 
+			{{tab}}  
+		</ion-segment-button>
+	</ion-segment>
+
+	<!-- here is our dynamic line  "indicator"-->
+	<div id='indicator' class="SwipedTabs-indicatorSegment" [ngStyle]="{'width.%': (100/this.tabs.length)}"></div>
+
+	<ion-slides #SwipedTabsSlider  (ionSlideDrag)="animateIndicator($event)"
+							(ionSlideWillChange)="updateIndicatorPosition()" 
+							(ionSlideDidChange)="updateIndicatorPosition()" 
+							(pan)="updateIndicatorPosition()"
+              [pager]="false"
+              [centeredSlides]="false"
+				>
+		<ion-slide>
+			<ion-grid *ngIf="popularMovies">
+        <ion-row>
+          <ion-col col-6 *ngFor="let movie of popularMovies">
+          <div class="card" (click)="navigateToDetailsPage(movie.id)"> 
+            <img src="http://image.tmdb.org/t/p/w500{{ movie.poster_path }}">
+            <div class="card-info">
+              <div class="card-title">
+                {{ movie.title }}
+              </div>
+              <div class="card-subtitle">
+                {{ movie.release_date.split('-')[0] }}
+              </div>
+              </div>
+            </div>
+          </ion-col>        
+        </ion-row>
+      </ion-grid>
+		</ion-slide>
+		<ion-slide>
+      <ion-grid *ngIf="upcomingMovies">
+        <ion-row>
+          <ion-col col-6 *ngFor="let movie of upcomingMovies">
+          <div class="card" (click)="navigateToDetailsPage(movie.id)">
+            <img src="http://image.tmdb.org/t/p/w500{{ movie.poster_path }}">
+            <div class="card-info">
+              <div class="card-title">
+                {{ movie.title }}
+              </div>
+              <div class="card-subtitle">
+                {{ movie.release_date.split('-')[0] }}
+              </div>
+              </div>
+            </div>
+          </ion-col>        
+        </ion-row>
+      </ion-grid>
+		</ion-slide>
+	</ion-slides>
+
+
 </ion-content>

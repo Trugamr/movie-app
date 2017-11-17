@@ -1,0 +1,138 @@
+<!--
+  Generated template for the DetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-content padding hidebackbuttontwo [button]="backbutton">
+
+  <ion-icon #backbutton class="back-icon" (click)="navigateBack()" name="ios-arrow-back" color="tomato"></ion-icon>
+
+  <div class="container" *ngIf="movieDetails">
+
+    <div class="hero-image">
+      <img src="http://image.tmdb.org/t/p/w1000{{ movieDetails.backdrop_path }}">
+    </div>
+
+    <div class="card">
+      <img src="http://image.tmdb.org/t/p/w185{{ movieDetails.poster_path }}">
+      <div class="card-info" >
+        <div class="card-title">{{ movieDetails.title }}</div>
+        <div class="card-subtitle">{{ movieDetails.release_date.split('-')[0] }}</div>
+        <hr>
+        <div class="rating" *ngIf="movieDetails">
+          <!-- <ion-icon name="star" color="darkgrey2"></ion-icon><span *ngIf="movie.vote_average"> {{ movie.vote_average }}</span> -->
+          <span *ngIf="movieDetails.vote_average">
+            <span *ngFor="let star of returnStars(movieDetails.vote_average);">
+              <ion-icon name="star"></ion-icon>
+            </span>
+            <ion-icon name="star-half" *ngIf="halfStar"></ion-icon>
+          </span>
+          <span *ngIf="!movieDetails.vote_average" style="font-size: 20px;">N/A</span>
+        </div>
+        <div class="runtime">
+          <ion-icon name="stopwatch"></ion-icon> {{ movieDetails.runtime }}m
+        </div>
+      </div>
+      <div class="card-button" (click)="openOfficialWebsite(movieDetails.homepage)">
+        <a href="{{ movieDetails.homepage }}">Official Website</a>
+      </div>
+    </div>
+  </div>
+  
+  <ion-segment [(ngModel)]="value">
+      <ion-segment-button value="info">
+          Info
+        </ion-segment-button>
+        <ion-segment-button value="cast">
+          Cast
+        </ion-segment-button>  
+        <ion-segment-button value="trailers">
+          Trailers
+        </ion-segment-button>
+        <ion-segment-button value="similar">
+          Similar
+        </ion-segment-button>    
+  </ion-segment>
+
+  <div class="segments" [ngSwitch]="value" *ngIf="movieDetails">
+
+    <div  *ngSwitchCase=" 'info' ">
+      <div class="seg-info">
+        <p class="seg-title">Release</p>
+        <p class="seg-content">{{release_date_final}}</p>
+      </div>
+      <div class="seg-info">
+          <p class="seg-title">Runtime</p>
+          <p class="seg-content">{{ movieDetails.runtime }} minutes</p>
+      </div>
+      <div class="seg-info" *ngIf="movieDetails.genres.length">
+          <p class="seg-title">Genres</p>
+          <p class="seg-content">
+            <span *ngFor="let genre of movieDetails.genres; let i = index;">
+              {{ genre.name }}<span *ngIf="i < movieDetails.genres.length - 1">, </span>
+            </span>
+          </p>
+      </div>
+      <div class="seg-info">
+          <p class="seg-title">Overview</p>
+          <p class="seg-content" id="overview">{{ movieDetails.overview }}</p>
+      </div>
+    </div>
+
+
+    <div class="cast" *ngSwitchCase=" 'cast' ">
+      <span *ngIf="movieCast">
+      <span *ngFor="let actor of movieCast; let i=index;">
+      <ion-item class="cast-bg" *ngIf="i < 5">
+        <ion-avatar item-start>
+          <img src="http://image.tmdb.org/t/p/w185{{ actor.profile_path }}">
+        </ion-avatar>
+        <p class="actor">{{ actor.name }}</p>
+        <p class="character">as {{ actor.character }}</p>
+      </ion-item>
+      </span>
+      </span>
+    </div>
+
+
+    <div  *ngSwitchCase=" 'trailers' ">
+      <ion-list *ngIf="movieTrailers">
+        <ion-item *ngFor="let trailer of movieTrailers" (click)="openYoutube(trailer.key)">
+          <ion-icon name="logo-youtube" class="youtube-icon"></ion-icon>
+          <span id="trailer-name">{{ trailer.name }}</span>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div  *ngSwitchCase=" 'similar' ">
+    <span *ngIf="movieSimilar">
+    <span *ngIf="movieSimilar.length">
+      <span *ngFor="let movie of movieSimilar; let i = index;">
+        <div class="sim-card" *ngIf="i < 5" (click)="navigateToDetailsPage(movie.id)">
+          <img src="http://image.tmdb.org/t/p/w185{{ movie.poster_path }}">
+          <div class="sim-info">
+            <p class="sim-title">{{ movie.title }}</p>
+            <p class="sim-year">{{ movie.release_date.split('-')[0] }}</p>
+            <hr class="sim-hr">
+            <p class="sim-rating">
+              <span *ngIf="movie.vote_average">
+                <span *ngFor="let star of returnStars(movie.vote_average);">
+                  <ion-icon name="star"></ion-icon>
+                </span>
+                <ion-icon name="star-half" *ngIf="halfStar"></ion-icon>
+                </span>
+              <span *ngIf="!movie.vote_average" style="font-size: 16px;">N/A</span>
+            </p>
+          </div>
+        </div>
+      </span>
+    </span>
+    </span>
+    </div>
+
+
+  </div>
+
+</ion-content>

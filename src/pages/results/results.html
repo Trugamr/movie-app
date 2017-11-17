@@ -1,0 +1,59 @@
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+<ion-header no-border>
+
+  
+  
+</ion-header>
+ 
+<ion-content padding hidebackbutton [button]="backbutton">
+
+  <ion-icon #backbutton class="back-icon" (click)="navigateBack()" name="ios-arrow-back" color="tomato"></ion-icon>
+  
+  <div class="spacer"></div>
+  
+  <!-- <div class="tomato-header">
+    <img src="./assets/imgs/tomatoheader.png">
+  </div> -->
+
+  <div class="tomo-header"></div>
+
+  <div class="cards-container" *ngFor="let movie of movieResults; let i = index;">
+    <div class="card" (click)="navigateToDetailsPage(movie.id)">
+      <div class="card-img">
+        <img src="http://image.tmdb.org/t/p/w185{{ movie.poster_path }}">
+      </div>
+      <div class="card-info">
+        <div class="card-title">{{ movie.title }}</div>
+        <div class="card-subtitle">
+          <span *ngIf="movie.release_date">{{ movie.release_date.split('-')[0] }}</span>
+          <span *ngIf="!movie.release_date">N/A</span>
+        </div>
+        <hr>
+        <div class="rating" >
+          <!-- <ion-icon name="star" color="darkgrey2"></ion-icon><span *ngIf="movie.vote_average"> {{ movie.vote_average }}</span> -->
+          <span *ngIf="movie.vote_average">
+            <span *ngFor="let star of returnStars(movie.vote_average);">
+              <ion-icon name="star"></ion-icon>
+            </span>
+            <ion-icon name="star-half" *ngIf="halfStar"></ion-icon>
+          </span>
+          <span *ngIf="!movie.vote_average" style="font-size: 16px;">N/A</span>
+        </div>
+      </div>
+    </div>    
+  </div>
+</ion-content>
+
+<!-- 
+<div class="card-container">
+  <div class="card">
+    <div class="card-img">
+      <img src="../../../assets/imgs/poster.jpg">
+    </div>
+    <div class="card-info">
+      <div class="card-title">Zootopia</div>
+      <div class="card-subtitle">2016</div>
+    </div>
+  </div>    
+</div> -->
